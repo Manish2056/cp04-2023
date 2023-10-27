@@ -39,6 +39,10 @@
         $('#btnC').click(function(e) {
             btnCClick(e);
         });
+
+         $('#btnD').click(function(e) {
+            btnDClick(e);
+        });
         init();
     });
     
@@ -96,7 +100,7 @@
         var canvas = $('#mycanvas')[0];
         var ctx = canvas.getContext('2d');
         ctx.fillStyle = 'rgba(255, 255, 255, 0.4)'; 
-        ctx.fillRect(0,0,canvas.width,canvas.height);
+        ctx.fillRect(0,20,canvas.width,canvas.height);
         var cx = canvas.width/2;
         var cy = canvas.height/2;
         var ds = second/60;
@@ -172,7 +176,7 @@
         var img = new Image();
         img.src="ksuisbg.gif";
         img.onload=function(){
-            ctx.drawImage(img,0,0,300,300);
+            ctx.drawImage(img,0,20,400,300);
         };
 
         var audio= new Audio();
@@ -180,6 +184,21 @@
         audio.play();
         
     }
+
+    function half(){
+        var canvas = $("#mycanvas")[0];
+        var ctx = canvas.getContext("2d");
+        var img = new Image();
+        img.src="Almost.jpeg";
+        img.onload=function(){
+            ctx.drawImage(img,0,20,400,300);
+        };
+
+        var audio= new Audio();
+        audio.src="trumpet.wav";
+        audio.play();
+    }
+
     
     // ButtonAがクリックされた時の処理
     function btnAClick(e){
@@ -191,6 +210,18 @@
     // ButtonBがクリックされた時の処理
     function btnBClick(e){
         active=false;
+        var canvas = $("#mycanvas")[0];
+        var ctx = canvas.getContext("2d");
+        var img = new Image();
+        img.src="Stop.jpeg";
+        img.onload=function(){
+            ctx.drawImage(img,0,20,400,300);
+        };
+
+        var audio= new Audio();
+        audio.src="pin.wav";
+        audio.play();
+
         
         
     }
@@ -205,6 +236,14 @@
         $("#remain").html("残り時間："+period);
         
     }
+
+     function btnDClick(e){
+
+        active=true;
+         var audio= new Audio();
+        audio.src="pin.wav";
+        audio.play();
+    }
     
  
     // 繰り返し実行する処理
@@ -216,6 +255,12 @@
             $("#remain").html("残り時間："+rest);
             analog(rest);
         }
+
+       if(rest==30){
+            active=true;
+            half();
+        }
+
 
         if(rest<=0){
             active=false;
@@ -229,8 +274,8 @@
   </script>
 </head>
 <body>
-    <canvas id="mycanvas" width="200" height="200">Test</canvas>
-
+    <canvas id="mycanvas" width="400" height="300" >Test</canvas>
+    <div id="dd" style="background-color: lightgrey">
     <div id="minuteStr">〇</div>
     <div id="secondStr">〇</div>
 
@@ -238,8 +283,9 @@
     <div id="time">Time</div>
     <button id="btnA">Start</button>  
     <button id="btnB">Stop</button>  
-    <button id="btnC">Set</button>  
-    <input type="number" id="minute" value=0>
-    <input type="number" id="second" value=15>
+    <button id="btnC">Set</button> 
+    <button id="btnD">Resume</button> 
+    <input type="number" id="minute" value=01>
+    <input type="number" id="second" value=00>
 </body>
 </html>
